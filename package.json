@@ -12,10 +12,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
-<<<<<<< HEAD
-=======
     "@react-native-async-storage/async-storage": "2.2.0",
->>>>>>> cami-zapata
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
@@ -47,16 +44,11 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
-<<<<<<< HEAD
-    "eslint": "^9.25.0",
-    "eslint-config-expo": "~10.0.0",
-=======
     "babel-preset-expo": "~54.0.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.17",
->>>>>>> cami-zapata
     "typescript": "~5.9.2"
   },
   "private": true
