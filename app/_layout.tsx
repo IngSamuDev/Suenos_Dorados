@@ -1,16 +1,4 @@
 import { Stack } from "expo-router";
-<<<<<<< HEAD
-import { StatusBar } from "react-native";
-
-export default function RootLayout() {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" backgroundColor="#fffdf9" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </>
-=======
 import { AuthProvider } from "../context/AuthContext";
 import { CartProvider } from "../context/CartContext";
 import { FavoritesProvider } from "../context/FavoritesContext";
@@ -31,6 +19,5 @@ export default function RootLayout() {
         </FavoritesProvider>
       </CartProvider>
     </AuthProvider>
->>>>>>> cami-zapata
   );
 }

@@ -1,20 +1,4 @@
 import { Feather } from "@expo/vector-icons";
-<<<<<<< HEAD
-import { StyleSheet, Text, View } from "react-native";
-import AppHeader from "../../components/header/AppHeader";
-
-export default function Favorites() {
-    return (
-        <View style={s.root}>
-            <AppHeader showSearch={false} title="Favoritos" />
-            <View style={s.center}>
-                <View style={s.iconWrap}>
-                    <Feather name="heart" size={32} color="#f5a742" />
-                </View>
-                <Text style={s.title}>Sin favoritos aún</Text>
-                <Text style={s.sub}>Tocá el corazón en cualquier producto para guardarlo acá</Text>
-            </View>
-=======
 import { useRouter } from "expo-router";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AppHeader from "../../components/header/AppHeader";
@@ -90,24 +74,11 @@ export default function Favorites() {
                     </View>
                 ))}
             </ScrollView>
->>>>>>> cami-zapata
         </View>
     );
 }
 
 const s = StyleSheet.create({
-<<<<<<< HEAD
-    root: { flex: 1, backgroundColor: "#fffdf9" },
-    center: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
-    iconWrap: {
-        width: 72, height: 72, borderRadius: 20,
-        backgroundColor: "#fff3dc",
-        alignItems: "center", justifyContent: "center",
-        borderWidth: 1, borderColor: "#f5e0b0",
-    },
-    title: { fontSize: 18, fontWeight: "800", color: "#2d2520" },
-    sub: { fontSize: 13, color: "#b0a090", textAlign: "center", paddingHorizontal: 40, lineHeight: 20 },
-=======
     root: { flex: 1, backgroundColor: COLORS.bg },
     count: { fontSize: 13, color: COLORS.muted, marginBottom: 4 },
     card: {
@@ -138,5 +109,4 @@ const s = StyleSheet.create({
     },
     addBtnTxt: { color: "#fff", fontSize: 11, fontWeight: "700" },
     removeBtn: { padding: 8 },
->>>>>>> cami-zapata
 });
