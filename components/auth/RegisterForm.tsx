@@ -122,23 +122,6 @@ export default function RegisterForm() {
                             {loading ? <ActivityIndicator color={WHITE} /> : <Text style={{ color: WHITE, fontSize: 16, fontWeight: "800", letterSpacing: 0.5 }}>Crear cuenta</Text>}
                         </TouchableOpacity>
 
-                        {/* Divider */}
-                        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                            <View style={{ flex: 1, height: 1, backgroundColor: BORDER }} />
-                            <Text style={{ color: MUTED, fontSize: 12 }}>o regístrate con</Text>
-                            <View style={{ flex: 1, height: 1, backgroundColor: BORDER }} />
-                        </View>
-
-                        {/* Social */}
-                        <View style={{ flexDirection: "row", gap: 12 }}>
-                            {[{ label: "Google", icon: "chrome" as const }, { label: "Facebook", icon: "facebook" as const }].map((s) => (
-                                <TouchableOpacity key={s.label} activeOpacity={0.75} style={{ flex: 1, height: 48, borderRadius: 14, backgroundColor: AMBER, borderWidth: 1.5, borderColor: BORDER, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 }}>
-                                    <Feather name={s.icon} size={18} color={TEXT} />
-                                    <Text style={{ color: TEXT, fontSize: 14, fontWeight: "600" }}>{s.label}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-
                         {/* Ir a login */}
                         <TouchableOpacity onPress={() => router.replace("/(tabs)/login" as any)} style={{ alignItems: "center", paddingVertical: 8 }}>
                             <Text style={{ color: MUTED, fontSize: 14 }}>¿Ya tienes cuenta?{" "}<Text style={{ color: ORANGE, fontWeight: "800" }}>Inicia sesión</Text></Text>
