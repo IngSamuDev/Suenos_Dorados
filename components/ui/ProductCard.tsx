@@ -1,11 +1,11 @@
 import { Feather } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useCart } from "../../context/CartContext";
-import { useFavorites } from "../../context/FavoritesContext";
-import { useToast } from "./Toast";
-import { fmt, pct } from "../../utils/format";
 import { Product } from "../../constants/products";
 import { COLORS } from "../../constants/theme";
+import { useCart } from "../../context/CartContext";
+import { useFavorites } from "../../context/FavoritesContext";
+import { fmt, pct } from "../../utils/format";
+import { useToast } from "./Toast";
 
 interface Props {
     product: Product;
@@ -179,7 +179,7 @@ const s = StyleSheet.create({
         zIndex: 1,
     },
     favBtnActive: { backgroundColor: COLORS.amber, borderColor: COLORS.amberBorder },
-    featBody: { padding: 13 },
+    featBody: { padding: 13,  flex: 1, justifyContent: "space-between" },
     featName: { fontSize: 13, fontWeight: "700", color: COLORS.text, lineHeight: 18, marginBottom: 2 },
     featDesc: { fontSize: 11, color: COLORS.muted, marginBottom: 8 },
     addBtn: {
@@ -196,12 +196,13 @@ const s = StyleSheet.create({
 
     // Grid
     gridCard: {
-        width: "47%",
+        flex: 1,
         backgroundColor: COLORS.card,
         borderRadius: 16,
         overflow: "hidden",
         borderWidth: 1,
         borderColor: COLORS.border,
+        minHeight: 260,
     },
     gridImgWrap: { position: "relative" },
     gridImg: { width: "100%", height: 130 },
@@ -218,7 +219,7 @@ const s = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLORS.border,
     },
-    gridBody: { padding: 10 },
+    gridBody: { padding: 10, flex: 1, justifyContent: "space-between" },
     catTxt: {
         fontSize: 10,
         color: COLORS.muted,
@@ -227,17 +228,18 @@ const s = StyleSheet.create({
         letterSpacing: 0.5,
         marginBottom: 2,
     },
-    gridName: { fontSize: 13, fontWeight: "700", color: COLORS.text, lineHeight: 17, marginBottom: 6 },
+    gridName: { fontSize: 13, fontWeight: "700", color: COLORS.text, lineHeight: 17, marginBottom: 6, minHeight: 34 },
     addBtnSm: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
         gap: 5,
         backgroundColor: COLORS.orange,
         paddingHorizontal: 10,
         paddingVertical: 7,
         borderRadius: 8,
-        alignSelf: "flex-start",
         marginTop: 6,
+        minHeight: 34,
     },
     addBtnSmTxt: { color: "#fff", fontSize: 11, fontWeight: "700" },
 

@@ -1,7 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import ProductCard from "../../components/ui/ProductCard";
 import { ALL_PRODUCTS, CATEGORIES } from "../../constants/products";
 import { COLORS } from "../../constants/theme";
@@ -55,6 +55,7 @@ export default function Explore() {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={s.catScroll}
+                style={{ flexGrow: 0 }}
             >
                 {CATEGORIES.map((cat) => (
                     <TouchableOpacity
@@ -74,14 +75,18 @@ export default function Explore() {
                     <Text style={s.noResultTxt}>Sin resultados para "{query}"</Text>
                 </View>
             ) : (
-                <ScrollView
+                <FlatList
+                    data={filtered}
+                    keyExtractor={(p) => p.id}
+                    numColumns={2}
+                    columnWrapperStyle={s.row}
                     contentContainerStyle={s.grid}
                     showsVerticalScrollIndicator={false}
-                >
-                    {filtered.map((p) => (
-                        <ProductCard key={p.id} product={p} variant="grid" />
-                    ))}
-                </ScrollView>
+                    
+                    renderItem={({ item }) => (
+                        <ProductCard product={item} variant="grid" />
+                    )}
+                />
             )}
         </View>
     );
@@ -125,7 +130,8 @@ const s = StyleSheet.create({
     catScroll: { paddingHorizontal: 20, paddingVertical: 14, gap: 8 },
     chip: {
         paddingHorizontal: 16,
-        paddingVertical: 8,
+        height: 36,
+        justifyContent: "center",
         borderRadius: 20,
         backgroundColor: COLORS.card,
         borderWidth: 1,
@@ -134,12 +140,8 @@ const s = StyleSheet.create({
     chipActive: { backgroundColor: COLORS.amber, borderColor: COLORS.amberBorder },
     chipTxt: { fontSize: 13, fontWeight: "600", color: COLORS.mutedDark },
     chipTxtActive: { color: COLORS.amberAccent, fontWeight: "700" },
-    grid: {
-        padding: 16,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: 12,
-    },
+    grid: { padding: 16, gap: 12},
+    row: { gap: 12 },
     noResult: { flex: 1, alignItems: "center", justifyContent: "center", gap: 10 },
     noResultTxt: { fontSize: 14, color: COLORS.mutedDark },
 });
