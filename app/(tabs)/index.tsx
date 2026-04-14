@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -438,3 +439,10 @@ const s = StyleSheet.create({
     alignItems: "center", justifyContent: "center",
   },
 });
+=======
+import { Redirect } from "expo-router";
+
+export default function Index() {
+  return <Redirect href={"/(tabs)/(stacks)/" as any} />;
+}
+>>>>>>> cami-zapata

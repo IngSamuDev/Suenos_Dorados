@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -273,4 +274,10 @@ export default function LoginScreen() {
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
+=======
+import LoginForm from "../../components/auth/LoginForm";
+
+export default function LoginScreen() {
+    return <LoginForm />;
+>>>>>>> cami-zapata
 }

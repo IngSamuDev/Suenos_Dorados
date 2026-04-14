@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -283,4 +284,10 @@ export default function RegisterScreen() {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+=======
+import RegisterForm from "../../components/auth/RegisterForm";
+
+export default function RegisterScreen() {
+    return <RegisterForm />;
+>>>>>>> cami-zapata
 }
