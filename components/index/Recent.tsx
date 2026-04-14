@@ -1,12 +1,23 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { RECENT_PRODUCTS } from "../../constants/products";
+import { ALL_PRODUCTS } from "../../constants/products";
 import { COLORS } from "../../constants/theme";
 import ProductCard from "../ui/ProductCard";
 
-export default function Recent() {
+interface Props {
+  categoryFilter?: string;
+}
+
+export default function Recent({ categoryFilter = "Todo" }: Props) {
   const router = useRouter();
+
+  const products = ALL_PRODUCTS.filter((p) => {
+    const matchCat = categoryFilter === "Todo" || p.category === categoryFilter;
+    return matchCat;
+  }).slice(-4); // últimos 4 como "recientes"
+
+  if (products.length === 0) return null;
 
   return (
     <View style={{ paddingHorizontal: 20 }}>
@@ -22,7 +33,7 @@ export default function Recent() {
       </View>
 
       <View style={{ gap: 10 }}>
-        {RECENT_PRODUCTS.map((p) => (
+        {products.map((p) => (
           <ProductCard key={p.id} product={p} variant="list" />
         ))}
       </View>

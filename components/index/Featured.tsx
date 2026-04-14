@@ -1,17 +1,31 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FEATURED_PRODUCTS } from "../../constants/products";
+import { ALL_PRODUCTS } from "../../constants/products";
 import { COLORS } from "../../constants/theme";
 import ProductCard from "../ui/ProductCard";
 
-export default function Featured() {
+interface Props {
+  categoryFilter?: string;
+}
+
+export default function Featured({ categoryFilter = "Todo" }: Props) {
   const router = useRouter();
+
+  const products = ALL_PRODUCTS.filter((p) => {
+    const hasImage = !!p.image;
+    const matchCat = categoryFilter === "Todo" || p.category === categoryFilter;
+    return hasImage && matchCat;
+  }).slice(0, 6); // máximo 6 en el scroll horizontal
+
+  if (products.length === 0) return null;
 
   return (
     <View style={{ marginBottom: 32 }}>
       <View style={s.secRow}>
-        <Text style={s.secTitle}>Más vendidos</Text>
+        <Text style={s.secTitle}>
+          {categoryFilter === "Todo" ? "Más vendidos" : categoryFilter}
+        </Text>
         <TouchableOpacity
           style={s.secLink}
           onPress={() => router.push("/(tabs)/explore" as any)}
@@ -26,7 +40,7 @@ export default function Featured() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 20, gap: 14 }}
       >
-        {FEATURED_PRODUCTS.map((p) => (
+        {products.map((p) => (
           <ProductCard key={p.id} product={p} variant="featured" />
         ))}
       </ScrollView>

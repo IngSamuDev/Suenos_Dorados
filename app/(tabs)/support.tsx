@@ -1,64 +1,101 @@
 import { Feather } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import AppHeader from "../../components/header/AppHeader";
-import { CONTACT_OPTIONS, FAQS } from "../../constants/support";
 import { COLORS, RADIUS } from "../../constants/theme";
 
-function ContactCard({ item }: { item: typeof CONTACT_OPTIONS[0] }) {
-    const handlePress = () => {
-        if (item.url) Linking.openURL(item.url);
-    };
+// ─── Datos ────────────────────────────────────────────────────────────────────
+const CONTACT = [
+    {
+        icon: "message-circle" as const,
+        label: "Chat en vivo",
+        sub: "Respondemos en minutos",
+        action: () => { },
+    },
+    {
+        icon: "mail" as const,
+        label: "Enviar un correo",
+        sub: "soporte@suenosDorados.com",
+        action: () => Linking.openURL("mailto:soporte@suenosDorados.com"),
+    },
+    {
+        icon: "phone" as const,
+        label: "Llamar al soporte",
+        sub: "+57 300 123 4567",
+        action: () => Linking.openURL("tel:+573001234567"),
+    },
+];
 
-    return (
-        <TouchableOpacity style={s.contactCard} onPress={handlePress} activeOpacity={0.7}>
-            <View style={s.contactIcon}>
-                <Feather name={item.icon} size={20} color={COLORS.orange} />
-            </View>
-            <View style={s.contactInfo}>
-                <Text style={s.contactTitle}>{item.title}</Text>
-                <Text style={s.contactSub}>{item.subtitle}</Text>
-            </View>
-            <Feather name="chevron-right" size={16} color={COLORS.mutedDark} />
-        </TouchableOpacity>
-    );
-}
-
-function FaqCard({ item }: { item: typeof FAQS[0] }) {
-    return (
-        <View style={s.faqCard}>
-            <View style={s.faqQuestion}>
-                <Feather name="help-circle" size={16} color={COLORS.orange} />
-                <Text style={s.faqQuestionTxt}>{item.question}</Text>
-            </View>
-            <Text style={s.faqAnswer}>{item.answer}</Text>
-        </View>
-    );
-}
+const FAQS = [
+    {
+        q: "¿Cuánto tarda el envío?",
+        a: "Los envíos demoran entre 3 y 5 días hábiles dependiendo de tu ciudad.",
+    },
+    {
+        q: "¿Puedo devolver un producto?",
+        a: "Sí, tenés 30 días desde la entrega para hacer una devolución sin costo.",
+    },
+    {
+        q: "¿Cómo hago seguimiento de mi pedido?",
+        a: "En la sección 'Mis pedidos' podés ver el estado de cada uno en tiempo real.",
+    },
+    {
+        q: "¿Qué métodos de pago aceptan?",
+        a: "Aceptamos tarjetas débito/crédito, PSE, Nequi y pago contra entrega.",
+    },
+    {
+        q: "¿Tienen garantía los productos?",
+        a: "Todos nuestros productos tienen garantía de 6 meses por defectos de fábrica.",
+    },
+];
 
 export default function Support() {
+    const router = useRouter();
+
     return (
         <View style={s.root}>
-            <AppHeader showSearch={false} title="Ayuda y soporte" />
+            {/* ── Header con retroceso ── */}
+            <View style={s.header}>
+                <TouchableOpacity style={s.backBtn} onPress={() => router.back()}>
+                    <Feather name="arrow-left" size={20} color={COLORS.text} />
+                </TouchableOpacity>
+                <Text style={s.title}>Ayuda y soporte</Text>
+                <View style={{ width: 40 }} />
+            </View>
+
             <ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* Contacto */}
-                <Text style={s.sectionTitle}>Contactanos</Text>
-                <View style={s.contactList}>
-                    {CONTACT_OPTIONS.map((item, i) => (
-                        <View key={item.id}>
-                            <ContactCard item={item} />
-                            {i < CONTACT_OPTIONS.length - 1 && <View style={s.divider} />}
-                        </View>
+                {/* ── Contacto ────────────────────────────── */}
+                <Text style={s.sectionTitle}>Contáctanos</Text>
+                <View style={s.contactCard}>
+                    {CONTACT.map((item, i) => (
+                        <TouchableOpacity
+                            key={item.label}
+                            style={[s.contactRow, i < CONTACT.length - 1 && s.contactBorder]}
+                            onPress={item.action}
+                            activeOpacity={0.7}
+                        >
+                            <View style={s.contactIcon}>
+                                <Feather name={item.icon} size={18} color={COLORS.orange} />
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                <Text style={s.contactLabel}>{item.label}</Text>
+                                <Text style={s.contactSub}>{item.sub}</Text>
+                            </View>
+                            <Feather name="chevron-right" size={16} color={COLORS.mutedDark} />
+                        </TouchableOpacity>
                     ))}
                 </View>
 
-                {/* FAQ */}
-                <Text style={s.sectionTitle}>Preguntas frecuentes</Text>
-                <View style={s.faqList}>
-                    {FAQS.map((item, i) => (
-                        <View key={item.id}>
-                            <FaqCard item={item} />
-                            {i < FAQS.length - 1 && <View style={s.divider} />}
+                {/* ── FAQ ─────────────────────────────────── */}
+                <Text style={[s.sectionTitle, { marginTop: 28 }]}>Preguntas frecuentes</Text>
+                <View style={s.faqCard}>
+                    {FAQS.map((faq, i) => (
+                        <View key={i} style={[s.faqItem, i < FAQS.length - 1 && s.faqBorder]}>
+                            <View style={s.faqQ}>
+                                <Feather name="help-circle" size={16} color={COLORS.orange} style={{ marginTop: 1 }} />
+                                <Text style={s.faqQTxt}>{faq.q}</Text>
+                            </View>
+                            <Text style={s.faqA}>{faq.a}</Text>
                         </View>
                     ))}
                 </View>
@@ -70,50 +107,66 @@ export default function Support() {
 
 const s = StyleSheet.create({
     root: { flex: 1, backgroundColor: COLORS.bg },
-    scroll: { padding: 16, paddingBottom: 100, gap: 12 },
-    sectionTitle: {
-        fontSize: 17,
-        fontWeight: "800",
-        color: COLORS.text,
-        marginBottom: 4,
-        marginTop: 8,
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 20,
+        paddingTop: 52,
+        paddingBottom: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.border,
+        backgroundColor: COLORS.bg,
     },
-    contactList: {
+    backBtn: {
+        width: 40, height: 40,
+        borderRadius: RADIUS.md,
+        backgroundColor: COLORS.card,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    title: { fontSize: 17, fontWeight: "800", color: COLORS.text },
+    scroll: { padding: 20, paddingBottom: 100 },
+    sectionTitle: { fontSize: 15, fontWeight: "800", color: COLORS.text, marginBottom: 12 },
+
+    // Contacto
+    contactCard: {
         backgroundColor: COLORS.card,
         borderRadius: RADIUS.xl,
         borderWidth: 1,
         borderColor: COLORS.border,
         overflow: "hidden",
     },
-    contactCard: {
+    contactRow: {
         flexDirection: "row",
         alignItems: "center",
         gap: 14,
         padding: 16,
     },
+    contactBorder: { borderBottomWidth: 1, borderBottomColor: COLORS.border },
     contactIcon: {
-        width: 44,
-        height: 44,
+        width: 40, height: 40,
         borderRadius: RADIUS.md,
         backgroundColor: COLORS.amber,
-        borderWidth: 1,
-        borderColor: COLORS.amberBorder,
         alignItems: "center",
         justifyContent: "center",
     },
-    contactInfo: { flex: 1 },
-    contactTitle: { fontSize: 14, fontWeight: "700", color: COLORS.text },
+    contactLabel: { fontSize: 14, fontWeight: "700", color: COLORS.text },
     contactSub: { fontSize: 12, color: COLORS.muted, marginTop: 2 },
-    faqList: {
+
+    // FAQ
+    faqCard: {
         backgroundColor: COLORS.card,
         borderRadius: RADIUS.xl,
         borderWidth: 1,
         borderColor: COLORS.border,
         overflow: "hidden",
     },
-    faqCard: { padding: 16, gap: 8 },
-    faqQuestion: { flexDirection: "row", alignItems: "center", gap: 8 },
-    faqQuestionTxt: { fontSize: 14, fontWeight: "700", color: COLORS.text, flex: 1 },
-    faqAnswer: { fontSize: 13, color: COLORS.muted, lineHeight: 19, paddingLeft: 24 },
-    divider: { height: 1, backgroundColor: COLORS.border, marginHorizontal: 16 },
+    faqItem: { padding: 16 },
+    faqBorder: { borderBottomWidth: 1, borderBottomColor: COLORS.border },
+    faqQ: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 6 },
+    faqQTxt: { fontSize: 14, fontWeight: "700", color: COLORS.text, flex: 1, lineHeight: 20 },
+    faqA: { fontSize: 13, color: COLORS.muted, lineHeight: 19, paddingLeft: 24 },
 });

@@ -1,15 +1,9 @@
-
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AppDrawer from "../drawer/AppDrawer";
+import { useCart } from "../../context/CartContext";
 
 const BG = "#fffdf9";
 const CARD = "#ffffff";
@@ -27,6 +21,7 @@ interface AppHeaderProps {
 export default function AppHeader({ showSearch = true, title }: AppHeaderProps) {
     const router = useRouter();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const { count } = useCart();
 
     return (
         <>
@@ -36,7 +31,7 @@ export default function AppHeader({ showSearch = true, title }: AppHeaderProps) 
             <View style={s.header}>
                 <View style={s.row}>
 
-                    {/* Menú hamburger */}
+                    {/* Hamburger */}
                     <TouchableOpacity
                         style={s.menuBtn}
                         onPress={() => setDrawerOpen(true)}
@@ -59,10 +54,24 @@ export default function AppHeader({ showSearch = true, title }: AppHeaderProps) 
 
                     {/* Iconos derecha */}
                     <View style={s.rightIcons}>
-                        {/* 👤 Usuario / Login */}
+                        {/* Carrito con badge */}
+                        <TouchableOpacity
+                            style={[s.iconBtn, s.cartBtn]}
+                            onPress={() => router.push("/(tabs)/cart" as any)}
+                            activeOpacity={0.7}
+                        >
+                            <Feather name="shopping-cart" size={18} color={ORANGE} />
+                            {count > 0 && (
+                                <View style={s.badge}>
+                                    <Text style={s.badgeTxt}>{count > 9 ? "9+" : count}</Text>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+
+                        {/* Usuario */}
                         <TouchableOpacity
                             style={s.iconBtn}
-                            onPress={() => router.push("/(tabs)/login" as any)}
+                            onPress={() => router.push("/(tabs)/profile" as any)}
                             activeOpacity={0.7}
                         >
                             <Feather name="user" size={18} color={MUTED} />
@@ -102,10 +111,8 @@ const s = StyleSheet.create({
     },
     menuBtn: {
         width: 40, height: 40, borderRadius: 12,
-        backgroundColor: CARD,
-        borderWidth: 1, borderColor: BORDER,
-        alignItems: "center", justifyContent: "center",
-        marginRight: 12,
+        backgroundColor: CARD, borderWidth: 1, borderColor: BORDER,
+        alignItems: "center", justifyContent: "center", marginRight: 12,
     },
     center: { flex: 1 },
     storeName: { fontSize: 18, fontWeight: "800", color: TEXT, letterSpacing: -0.4 },
@@ -114,25 +121,21 @@ const s = StyleSheet.create({
     rightIcons: { flexDirection: "row", gap: 8 },
     iconBtn: {
         width: 40, height: 40, borderRadius: 20,
-        backgroundColor: CARD,
-        borderWidth: 1, borderColor: BORDER,
+        backgroundColor: CARD, borderWidth: 1, borderColor: BORDER,
         alignItems: "center", justifyContent: "center",
     },
     cartBtn: { backgroundColor: AMBER, borderColor: "#f5d99a" },
     badge: {
         position: "absolute", top: -2, right: -2,
-        width: 16, height: 16, borderRadius: 8,
-        backgroundColor: ORANGE,
-        alignItems: "center", justifyContent: "center",
-        borderWidth: 1.5, borderColor: BG,
+        minWidth: 16, height: 16, borderRadius: 8,
+        backgroundColor: ORANGE, alignItems: "center", justifyContent: "center",
+        borderWidth: 1.5, borderColor: BG, paddingHorizontal: 2,
     },
     badgeTxt: { fontSize: 9, fontWeight: "800", color: "#fff" },
     searchWrap: {
         flexDirection: "row", alignItems: "center",
-        backgroundColor: CARD,
-        borderWidth: 1, borderColor: BORDER,
-        borderRadius: 12,
-        paddingHorizontal: 14, paddingVertical: 11,
+        backgroundColor: CARD, borderWidth: 1, borderColor: BORDER,
+        borderRadius: 12, paddingHorizontal: 14, paddingVertical: 11,
     },
     searchPlaceholder: { flex: 1, fontSize: 14, color: MUTED },
 });

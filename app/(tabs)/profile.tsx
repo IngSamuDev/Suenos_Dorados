@@ -17,7 +17,7 @@ const MENU_ITEMS: {
         { icon: "map-pin", label: "Mis direcciones", route: "/(tabs)/addresses" },
         { icon: "credit-card", label: "Métodos de pago", route: "/(tabs)/payments" },
         { icon: "bell", label: "Notificaciones", route: "/(tabs)/notifications" },
-{ icon: "help-circle", label: "Ayuda y soporte", route: "/(tabs)/support" },
+        { icon: "help-circle", label: "Ayuda y soporte", route: "/(tabs)/support" },
         { icon: "log-out", label: "Cerrar sesión", danger: true },
     ];
 
