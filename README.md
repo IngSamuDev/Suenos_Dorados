@@ -1,3 +1,6 @@
+1. Link de Figma:
+   https://www.figma.com/design/o3TsDUM0m2ebUFPNQR35iW/Mockups-proyecto-formativo?node-id=0-1&t=jFnH5f4WBzSGopE1-1
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
